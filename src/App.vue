@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useAuthStore } from './stores/auth'
+import Welcome from './components/Welcome.vue'
+import MainSection from './components/MainSection.vue'
 const store = useAuthStore()
 
 onMounted(() => {
@@ -9,7 +11,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Welcome, your token is: {{ store.token }}</h1>
+  <v-container>
+    <Welcome v-if="!store.authorised"/>
+    <MainSection v-else />
+  </v-container>
 </template>
 
 <style scoped></style>
