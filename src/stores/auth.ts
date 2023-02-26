@@ -3,16 +3,15 @@ import spotifyAPI from '../services/spotify'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    token: ''
+    authorised: false
   }),
   actions: {
     getAuth(): void {
-      // If token exists do nothing
-      if (this.token.length) return
+      if (this.authorised) return
 
       const sessionToken = sessionStorage.getItem('spotifyToken')
       if (sessionToken) {
-        this.token = sessionToken
+        this.authorised = true
         return
       }
 
@@ -21,7 +20,7 @@ export const useAuthStore = defineStore('auth', {
       const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/)
 
       if (accessTokenMatch && expiresInMatch) {
-        this.token = accessTokenMatch[1]
+        this.authorised = true
         sessionStorage.setItem('spotifyToken', accessTokenMatch[1])
         const expiresIn = Number(expiresInMatch[1])
         window.setTimeout(() => this.refreshToken(), expiresIn * 1000)
@@ -43,7 +42,7 @@ export const useAuthStore = defineStore('auth', {
     },
     refreshToken(): void {
       // on token expiry generate refresh token
-      this.token = ''
+      this.authorised = false
       sessionStorage.removeItem('spotifyToken')
     }
   }
