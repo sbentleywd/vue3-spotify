@@ -6,13 +6,13 @@ import Results from './Results.vue'
 
 <template>
   <v-row>
-    <v-col cols="4">
+    <v-col lg="4" md="6" sm="12" class="text-center">
       <SeedSelection />
     </v-col>
-    <v-col cols="4">
+    <v-col lg="4" md="6" sm="12" class="text-center">
       <Seeds />
     </v-col>
-    <v-col cols="4">
+    <v-col lg="4" md="6" sm="12" class="text-center">
       <Results />
     </v-col>
   </v-row>
