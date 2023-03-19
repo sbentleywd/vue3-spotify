@@ -3,7 +3,7 @@ import { onMounted } from 'vue'
 import { useAuthStore } from './stores/authStore'
 import Welcome from './components/Welcome.vue'
 import MainSection from './components/MainSection.vue'
-import 'spotify-api'
+
 const store = useAuthStore()
 
 onMounted(() => {
