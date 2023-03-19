@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useAuthStore } from './stores/auth'
+import { useAuthStore } from './stores/authStore'
 import Welcome from './components/Welcome.vue'
 import MainSection from './components/MainSection.vue'
+import 'spotify-api'
 const store = useAuthStore()
 
 onMounted(() => {
-  store.getAuth()
+  store.checkAuth()
 })
 </script>
 
 <template>
   <v-container>
-    <Welcome v-if="!store.authorised"/>
+    <Welcome v-if="!store.sessionToken" />
     <MainSection v-else />
   </v-container>
 </template>
