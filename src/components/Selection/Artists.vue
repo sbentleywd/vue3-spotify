@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useArtistsStore } from '../../stores/artistsStore'
+import { useUserStore } from '../../stores/userStore'
 import { computed } from '@vue/reactivity'
-const artistsStore = useArtistsStore()
-const topArtists = computed(() => artistsStore.topArtists)
+const userStore = useUserStore()
+const topArtists = computed(() => userStore.topArtists)
 
-artistsStore.getTopArtists()
+userStore.getTopArtists()
 </script>
 
 <template>
