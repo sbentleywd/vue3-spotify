@@ -11,7 +11,7 @@ const spotifyAPI = axios.create({
 })
 
 export default {
-  getTopArtists(term: string = 'long_term') {
-    return spotifyAPI.get(`me/top/artists?&limit=50&time_range=${term}`)
+  getTopItems(type: string, limit: number = 20, term: string = 'long_term') {
+    return spotifyAPI.get(`me/top/${type}?&limit=${limit}&time_range=${term}`)
   }
 }
