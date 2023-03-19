@@ -12,7 +12,7 @@ import './assets/main.css'
 
 const vuetify = createVuetify({
   components,
-  directives,
+  directives
 })
 
 const app = createApp(App)

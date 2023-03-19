@@ -7,6 +7,7 @@ export const useArtistsStore = defineStore('artists', {
   }),
   actions: {
     async getTopArtists(): Promise<void> {
+      if (this.topArtists.length) return
       const response = await spotifyAPI.getTopArtists()
       this.topArtists = response.data.items
     }
