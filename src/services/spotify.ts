@@ -1,13 +1,14 @@
 import axios from 'axios'
+import { useAuthStore } from '@/stores/authStore'
 
-const accessToken = sessionStorage.getItem('spotifyToken')
 const spotifyAPI = axios.create({
-  baseURL: 'https://api.spotify.com/v1/',
-  headers: {
-    // 'Access-Control-Allow-Origin': '*',
-    // 'Content-Type': 'application/json',
-    Authorization: `Bearer ${accessToken}`
-  }
+  baseURL: 'https://api.spotify.com/v1/'
+})
+
+spotifyAPI.interceptors.request.use((config) => {
+  const authStore = useAuthStore()
+  config.headers.Authorization = `Bearer ${authStore.sessionToken}`
+  return config
 })
 
 export default {
