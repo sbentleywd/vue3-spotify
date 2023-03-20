@@ -1,21 +1,18 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useAuthStore } from './stores/authStore'
 import Welcome from './components/Welcome.vue'
 import MainSection from './components/MainSection.vue'
+import { useAuthStore } from './stores/authStore'
 
-const store = useAuthStore()
-
-onMounted(() => {
-  store.checkAuth()
-})
+const authStore = useAuthStore()
 </script>
 
 <template>
-  <v-container>
-    <Welcome v-if="!store.sessionToken" />
-    <MainSection v-else />
-  </v-container>
+  <v-app>
+    <v-container>
+      <Welcome v-if="!authStore.sessionToken" />
+      <MainSection v-else />
+    </v-container>
+  </v-app>
 </template>
 
 <style scoped></style>
