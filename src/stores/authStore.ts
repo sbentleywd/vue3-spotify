@@ -7,12 +7,12 @@ export const useAuthStore = defineStore('auth', {
   }),
   actions: {
     checkAuth() {
-      console.log(window.location.href)
       if (this.sessionToken) return
 
       // check for token in session storage
       const sessionToken = sessionStorage.getItem('spotifyToken')
-      if (sessionToken) {
+      const tokenExpiry = Number(sessionStorage.getItem('spotifyTokenExpiry'))
+      if (sessionToken && tokenExpiry && tokenExpiry > Date.now()) {
         this.sessionToken = sessionToken
         return
       }
@@ -24,8 +24,10 @@ export const useAuthStore = defineStore('auth', {
       if (accessTokenMatch && expiresInMatch) {
         sessionStorage.setItem('spotifyToken', accessTokenMatch[1])
         this.sessionToken = accessTokenMatch[1]
-        const expiresIn = Number(expiresInMatch[1])
-        window.setTimeout(() => this.refreshToken(), expiresIn * 1000)
+        const expiresIn = Number(expiresInMatch[1]) * 1000
+        const tokenExpiry = Date.now() + expiresIn
+        sessionStorage.setItem('spotifyTokenExpiry', tokenExpiry.toString())
+        window.setTimeout(() => this.refreshToken(), expiresIn)
         window.history.pushState('Access Token', '', '/')
       } else {
         this.getAuthToken()
