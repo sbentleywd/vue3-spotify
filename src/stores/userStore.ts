@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import spotifyAPI from '../services/spotify'
 
-export const useUserStore = defineStore('artists', {
+export const useUserStore = defineStore('user', {
   state: () => ({
     topArtists: [] as SpotifyApi.ArtistObjectFull[],
     topTracks: [] as SpotifyApi.TrackObjectFull[]
