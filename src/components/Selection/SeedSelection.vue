@@ -8,9 +8,6 @@ const model = ref('Artists')
 <template>
   <div>
     <v-row>
-      <h1>Selections</h1>
-    </v-row>
-    <v-row>
       <v-col cols="12" class="d-flex align-center justify-center">
         Tracks
         <v-switch
