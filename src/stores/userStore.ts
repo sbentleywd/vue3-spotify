@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import spotifyAPI from '../services/spotify'
+import type { track, artist } from '@/types'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    topArtists: [] as SpotifyApi.ArtistObjectFull[],
-    topTracks: [] as SpotifyApi.TrackObjectFull[]
+    topArtists: [] as artist[],
+    topTracks: [] as track[]
   }),
   actions: {
     async getTopArtists(): Promise<void> {
