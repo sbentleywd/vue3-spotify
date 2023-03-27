@@ -22,5 +22,3 @@ userStore.getTopArtists()
     />
   </v-list>
 </template>
-
-<style scoped></style>
