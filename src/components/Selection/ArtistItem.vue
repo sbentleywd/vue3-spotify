@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { useSelectionStore } from '@/stores/selectionStore'
 import type { artist } from '@/types'
 
