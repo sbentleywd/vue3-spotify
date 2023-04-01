@@ -6,7 +6,7 @@ const model = ref('Artists')
 </script>
 
 <template>
-  <div>
+  <div class="fill-height d-flex flex-column">
     <v-row>
       <v-col cols="12" class="d-flex align-center justify-center">
         Tracks
