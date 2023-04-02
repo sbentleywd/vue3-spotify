@@ -2,7 +2,8 @@
 import { ref } from 'vue'
 import Artists from './Artists.vue'
 import Tracks from './Tracks.vue'
-const model = ref('Artists')
+import { useSelectionStore } from '@/stores/selectionStore'
+const selectionStore = useSelectionStore()
 </script>
 
 <template>
@@ -11,10 +12,10 @@ const model = ref('Artists')
       <v-col cols="12" class="d-flex align-center justify-center">
         Tracks
         <v-switch
-          v-model="model"
+          v-model="selectionStore.model"
           hide-details
-          true-value="Artists"
-          false-value="Tracks"
+          true-value="artists"
+          false-value="tracks"
           color="secondary"
           class="flex-grow-0 mx-4"
         />
@@ -22,7 +23,7 @@ const model = ref('Artists')
       </v-col>
     </v-row>
 
-    <Artists v-if="model === 'Artists'" />
+    <Artists v-if="selectionStore.model === 'artists'" />
     <Tracks v-else />
   </div>
 </template>
