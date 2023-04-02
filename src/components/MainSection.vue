@@ -4,19 +4,29 @@ import Results from './Results/Results.vue'
 </script>
 
 <template>
-  <v-row style="width: 100%">
-    <v-col cols="12" md="6" xs="12" class="text-center appSection">
+  <v-row style="width: 100%" id="mainRow">
+    <v-col cols="12" md="6" xs="12" class="text-center mainCol">
       <SeedSelection />
     </v-col>
-    <v-col cols="12" md="6" xs="12" class="text-center appSection">
+    <v-col cols="12" md="6" xs="12" class="text-center mainCol">
       <Results />
     </v-col>
   </v-row>
 </template>
 
 <style scoped lang="scss">
-.appSection {
-  height: calc(100vh - 100px - 10px);
-  overflow: hidden;
+#mainRow {
+  .mainCol {
+    height: 550px;
+  }
+}
+
+@media (min-width: 600px) {
+  #mainRow {
+    height: 100%;
+    .mainCol {
+      height: 100%;
+    }
+  }
 }
 </style>

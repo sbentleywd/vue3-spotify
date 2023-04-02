@@ -15,9 +15,12 @@ export default {
   getTopItems(type: string, limit: number = 20, term: string = 'long_term') {
     return spotifyAPI.get(`me/top/${type}?&limit=${limit}&time_range=${term}`)
   },
-  async getRecommendations(type: string, seeds: string[]) {
+  getRecommendations(type: string, seeds: string[]) {
     const typeString = type === 'artists' ? 'seed_artists' : 'seed_tracks'
     const seedString = seeds.join(',')
-    return await spotifyAPI.get(`recommendations?&${typeString}=${seedString}`)
+    return spotifyAPI.get(`recommendations?&${typeString}=${seedString}`)
+  },
+  getUserDetails() {
+    return spotifyAPI.get('me')
   }
 }

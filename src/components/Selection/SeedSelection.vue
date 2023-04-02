@@ -7,7 +7,7 @@ const selectionStore = useSelectionStore()
 
 <template>
   <div class="fill-height d-flex flex-column justify-start">
-    <v-row>
+    <v-row class="flex-grow-0" style="height: 80px">
       <v-col cols="12" class="d-flex align-center justify-center">
         Tracks
         <v-switch

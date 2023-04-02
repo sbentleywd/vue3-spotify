@@ -2,7 +2,6 @@
 import { useSelectionStore } from '@/stores/selectionStore'
 import { computed } from '@vue/reactivity'
 import type { track } from '@/types'
-import ArtistItem from './ArtistItem.vue'
 
 const selectionStore = useSelectionStore()
 const props = defineProps<{
