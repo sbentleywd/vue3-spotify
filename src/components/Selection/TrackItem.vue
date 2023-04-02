@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useSelectionStore } from '@/stores/selectionStore'
+import { computed } from '@vue/reactivity'
 import type { track } from '@/types'
+import ArtistItem from './ArtistItem.vue'
 
 const selectionStore = useSelectionStore()
 const props = defineProps<{
@@ -9,6 +11,8 @@ const props = defineProps<{
   disabled?: boolean
   mode: 'selection' | 'results'
 }>()
+
+const artistsList = computed(() => props.trackData.artists.map((artist) => artist.name).join(', '))
 
 const handleClick = () => {
   if (props.mode === 'selection') {
@@ -24,7 +28,7 @@ const handleClick = () => {
     :prepend-avatar="props.trackData.album.images[2].url"
     @click="handleClick"
     :disabled="props.disabled"
-    >{{ props.trackData.name + ' - ' + props.trackData.artists[0].name }}
+    ><span class="text-truncate px-2">{{ props.trackData.name + ' - ' + artistsList }}</span>
     <template v-slot:append>
       <v-icon color="secondary">{{ props.selected ? 'mdi-check' : '' }}</v-icon>
     </template>
