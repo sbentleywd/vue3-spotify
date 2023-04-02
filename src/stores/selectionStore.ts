@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { artist, track } from '@/types'
 import spotify from '@/services/spotify'
+import { usePlayerStore } from './playerStore'
 
 export const useSelectionStore = defineStore({
   id: 'selections',
@@ -55,6 +56,8 @@ export const useSelectionStore = defineStore({
       const response = await spotify.getRecommendations(this.model, this.getSeeds)
       if ((response.status = 200)) {
         this.recommendations = response.data.tracks
+        const playerStore = usePlayerStore()
+        playerStore.playTracks(response.data.tracks)
       }
     }
   }

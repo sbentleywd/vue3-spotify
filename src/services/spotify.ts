@@ -22,5 +22,8 @@ export default {
   },
   getUserDetails() {
     return spotifyAPI.get('me')
+  },
+  play(uris: string[], deviceId: string) {
+    return spotifyAPI.put(`me/player/play?device_id=${deviceId}`, JSON.stringify({ uris }))
   }
 }
