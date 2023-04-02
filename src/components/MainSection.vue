@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SeedSelection from './Selection/SeedSelection.vue'
-import Results from './Results.vue'
+import Results from './Results/Results.vue'
 </script>
 
 <template>

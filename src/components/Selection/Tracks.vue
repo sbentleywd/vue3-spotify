@@ -3,7 +3,7 @@ import { useUserStore } from '../../stores/userStore'
 import { useSelectionStore } from '@/stores/selectionStore'
 
 import { computed } from '@vue/reactivity'
-import TrackItem from './TrackItem.vue'
+import TrackItem from '@/components//Selection/TrackItem.vue'
 const userStore = useUserStore()
 const selectionStore = useSelectionStore()
 const topTracks = computed(() => userStore.topTracks)
@@ -20,6 +20,7 @@ userStore.getTopTracks()
       :track-data="track"
       :selected="selectedTrackIds.includes(track.id)"
       :disabled="selectedTrackIds.length > 4 && !selectedTrackIds.includes(track.id)"
+      mode="selection"
     />
   </v-list>
 </template>

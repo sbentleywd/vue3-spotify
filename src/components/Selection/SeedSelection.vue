@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import Artists from './Artists.vue'
 import Tracks from './Tracks.vue'
 import { useSelectionStore } from '@/stores/selectionStore'
@@ -7,7 +6,7 @@ const selectionStore = useSelectionStore()
 </script>
 
 <template>
-  <div class="fill-height d-flex flex-column">
+  <div class="fill-height d-flex flex-column justify-start">
     <v-row>
       <v-col cols="12" class="d-flex align-center justify-center">
         Tracks
