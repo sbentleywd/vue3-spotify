@@ -10,7 +10,7 @@
             currentTrack.name + ' - ' + artistName
           }}</span></v-col
         >
-        <v-col cols="12" md="6" xs="12" class="d-flex align-center justify-center">
+        <v-col cols="6" md="4" xs="6" class="d-flex align-center justify-center">
           <v-icon @click="spotifyPlayer.previousTrack()" icon="mdi-skip-previous" class="mx-2" />
           <v-icon
             v-if="!playerState.paused"
@@ -19,14 +19,17 @@
             class="mx-2"
           />
           <v-icon v-else @click="spotifyPlayer.togglePlay()" icon="mdi-play" class="mx-2" />
-          <v-icon @click="spotifyPlayer.nextTrack()" icon="mdi-skip-next" class="mx-2" /> </v-col
+          <v-icon @click="spotifyPlayer.nextTrack()" icon="mdi-skip-next" class="mx-2" />
+        </v-col>
+        <v-col cols="6" md="2" xs="6" class="d-flex align-center justify-center"
+          ><v-slider min="0" max="1" v-model="volume" hide-details></v-slider></v-col
       ></v-row>
     </v-col>
   </v-row>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { usePlayerStore } from '@/stores/playerStore'
 import type { track } from '@/types'
@@ -47,6 +50,10 @@ const trackImageUrl = computed(
 const artistName = computed(() =>
   currentTrack.value ? formatArtists(currentTrack.value.artists) : ''
 )
+
+const volume = ref(0.5)
+
+watch(volume, (val) => spotifyPlayer.value.setVolume(val))
 
 const loadScript = async () => {
   const script = document.createElement('script')
@@ -80,8 +87,14 @@ const loadScript = async () => {
     })
 
     // @ts-ignore
+    player.addListener('autoplay_failed', ({ device_id }) => {
+      console.log('Device ID has gone offline', device_id)
+    })
+
+    // @ts-ignore
     player.addListener('player_state_changed', (state) => {
       playerState.value = state
+      console.log(state)
     })
 
     player.connect()
