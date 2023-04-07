@@ -1,22 +1,25 @@
 <template>
-  <v-row v-if="currentTrack">
-    <v-col cols="2">
-      <v-avatar>
-        <v-img :src="trackImageUrl" alt="John"></v-img>
-      </v-avatar>
+  <v-row no-gutters v-if="currentTrack" class="fill-height">
+    <v-col cols="3" md="2" xs="3" class="d-flex align-center justify-center">
+      <v-img :src="trackImageUrl" alt="Track image" max-height="90"></v-img>
     </v-col>
-    <v-col col="10">
-      <v-row>
-        <v-col cols="12" md="6" xs="12"
+    <v-col cols="9" md="10" xs="9">
+      <v-row no-gutters class="fill-height">
+        <v-col cols="12" md="6" xs="12" class="d-flex align-center justify-center"
           ><span class="text-truncate px-2">{{
             currentTrack.name + ' - ' + artistName
           }}</span></v-col
         >
-        <v-col cols="12" md="6" xs="12">
-          <v-icon @click="spotifyPlayer.previousTrack()" icon="mdi-skip-previous" />
-          <v-icon v-if="!playerState.paused" @click="spotifyPlayer.togglePlay()" icon="mdi-pause" />
-          <v-icon v-else @click="spotifyPlayer.togglePlay()" icon="mdi-play" />
-          <v-icon @click="spotifyPlayer.nextTrack()" icon="mdi-skip-next" /> </v-col
+        <v-col cols="12" md="6" xs="12" class="d-flex align-center justify-center">
+          <v-icon @click="spotifyPlayer.previousTrack()" icon="mdi-skip-previous" class="mx-2" />
+          <v-icon
+            v-if="!playerState.paused"
+            @click="spotifyPlayer.togglePlay()"
+            icon="mdi-pause"
+            class="mx-2"
+          />
+          <v-icon v-else @click="spotifyPlayer.togglePlay()" icon="mdi-play" class="mx-2" />
+          <v-icon @click="spotifyPlayer.nextTrack()" icon="mdi-skip-next" class="mx-2" /> </v-col
       ></v-row>
     </v-col>
   </v-row>

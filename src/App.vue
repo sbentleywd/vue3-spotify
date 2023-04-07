@@ -13,22 +13,27 @@ userStore.getUserInfo()
 </script>
 
 <template>
-  <v-app id="app">
+  <v-app>
     <AppBar />
-    <v-main class="fill-height">
-      <v-container id="appContainer" fluid class="fill-height">
+    <v-main>
+      <v-container fluid>
         <Welcome v-if="!authStore.sessionToken" />
         <MainSection v-else />
       </v-container>
     </v-main>
-    <v-bottom-navigation><Player /></v-bottom-navigation>
+    <div id="playerContainer"><Player /></div>
   </v-app>
 </template>
 
-<style scoped lang="scss">
-@media (min-width: 600px) {
-  #app {
-    height: 100vh;
-  }
+<style lang="scss">
+.v-main {
+  padding-bottom: var(--player-height) !important;
+}
+#playerContainer {
+  height: var(--player-height);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgb(var(--v-theme-surface));
 }
 </style>

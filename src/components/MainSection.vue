@@ -4,7 +4,7 @@ import Results from './Results/Results.vue'
 </script>
 
 <template>
-  <v-row style="width: 100%" id="mainRow">
+  <v-row id="mainRow">
     <v-col cols="12" md="6" xs="12" class="text-center mainCol">
       <SeedSelection />
     </v-col>
@@ -14,19 +14,10 @@ import Results from './Results/Results.vue'
   </v-row>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 #mainRow {
   .mainCol {
-    height: 550px;
-  }
-}
-
-@media (min-width: 600px) {
-  #mainRow {
-    height: 100%;
-    .mainCol {
-      height: 100%;
-    }
+    height: calc(100vh - var(--player-height) - var(--header-height));
   }
 }
 </style>
