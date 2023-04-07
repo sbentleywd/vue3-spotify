@@ -2,6 +2,7 @@
 import { useSelectionStore } from '@/stores/selectionStore'
 import { computed } from '@vue/reactivity'
 import type { track } from '@/types'
+import { formatArtists } from '@/helpers'
 
 const selectionStore = useSelectionStore()
 const props = defineProps<{
@@ -11,7 +12,7 @@ const props = defineProps<{
   mode: 'selection' | 'results'
 }>()
 
-const artistsList = computed(() => props.trackData.artists.map((artist) => artist.name).join(', '))
+const artistsList = computed(() => formatArtists(props.trackData.artists))
 
 const handleClick = () => {
   if (props.mode === 'selection') {
