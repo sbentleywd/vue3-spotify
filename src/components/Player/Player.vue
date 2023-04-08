@@ -22,7 +22,13 @@
           <v-icon @click="spotifyPlayer.nextTrack()" icon="mdi-skip-next" class="mx-2" />
         </v-col>
         <v-col cols="6" md="2" xs="6" class="d-flex align-center justify-center"
-          ><v-slider min="0" max="1" v-model="volume" hide-details></v-slider></v-col
+          ><v-slider
+            min="0"
+            max="1"
+            v-model="volume"
+            hide-details
+            color="secondary"
+          ></v-slider></v-col
       ></v-row>
     </v-col>
   </v-row>
