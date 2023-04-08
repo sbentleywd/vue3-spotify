@@ -12,7 +12,7 @@ userStore.getTopArtists()
 </script>
 
 <template>
-  <v-list class="rounded-lg">
+  <v-list class="rounded-lg elevation-2">
     <ArtistItem
       v-for="(artist, index) in topArtists"
       :key="index"

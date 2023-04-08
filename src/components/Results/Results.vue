@@ -15,7 +15,7 @@ const recommendations = computed(() => selectionStore.recommendations)
     <span class="test-body-2" v-if="!recommendations.length"
       >Select up to 5 seeds to generate recommendations</span
     >
-    <v-list v-else class="rounded-lg flex-grow-1">
+    <v-list v-else class="rounded-lg elevation-2 flex-grow-1">
       <TrackItem
         v-for="(track, index) in recommendations"
         :key="index"

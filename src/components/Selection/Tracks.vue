@@ -13,7 +13,7 @@ userStore.getTopTracks()
 </script>
 
 <template>
-  <v-list class="rounded-lg">
+  <v-list class="rounded-lg  elevation-2">
     <TrackItem
       v-for="(track, index) in topTracks"
       :key="index"
