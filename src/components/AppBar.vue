@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useUserStore } from '@/stores/userStore'
+import { useSelectionStore } from '@/stores/selectionStore'
 import { useTheme } from 'vuetify/lib/framework.mjs'
 
 const userStore = useUserStore()
+const selectionStore = useSelectionStore()
 const settingsOpen = ref(false)
 const userDetails = computed(() => userStore.userDetails)
 const userImageUrl = computed(() => {
@@ -14,6 +16,22 @@ const theme = useTheme()
 const toggleTheme = () => {
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 }
+
+const timeFrames = [
+  { text: 'Long Term', value: 'long_term' },
+  { text: 'Medium Term', value: 'medium_term' },
+  { text: 'Short Term', value: 'short_term' }
+]
+
+const selectedTimeframe = computed(() => selectionStore.timeFrame)
+watch(selectedTimeframe, () => {
+  const model = selectionStore.model
+  if (model === 'artists') {
+    userStore.getTopArtists(selectedTimeframe.value)
+  } else {
+    userStore.getTopTracks(selectedTimeframe.value)
+  }
+})
 </script>
 <template>
   <v-app-bar rounded>
@@ -36,11 +54,21 @@ const toggleTheme = () => {
         :subtitle="userDetails?.email"
       ></v-list-item>
       <v-divider class="my-2" />
-      <v-list-group value="selection">
+      <v-list-group fluid value="selection">
         <template v-slot:activator="{ props }">
           <v-list-item v-bind="props" title="Selection settings"></v-list-item>
         </template>
-        <v-list-item :title="'test'" :value="'test'"></v-list-item>
+        <v-list-item class="pl-2"
+          >Time frame<v-select
+            v-model="selectionStore.timeFrame"
+            label="Select"
+            :items="timeFrames"
+            item-title="text"
+            item-value="value"
+            solo
+            density="compact"
+          ></v-select
+        ></v-list-item>
       </v-list-group>
       <v-divider class="my-2" />
 
@@ -48,7 +76,7 @@ const toggleTheme = () => {
         <template v-slot:activator="{ props }">
           <v-list-item v-bind="props" title="Recommendation settings"></v-list-item>
         </template>
-        <v-list-item :title="'test'" :value="'test'"></v-list-item>
+        <v-list-item>Test</v-list-item>
       </v-list-group>
     </v-list>
   </v-navigation-drawer>
