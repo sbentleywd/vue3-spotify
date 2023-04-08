@@ -34,6 +34,6 @@ userStore.getUserInfo()
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: rgb(var(--v-theme-surface));
+  background: rgb(var(--v-theme-on-surface-variant));
 }
 </style>

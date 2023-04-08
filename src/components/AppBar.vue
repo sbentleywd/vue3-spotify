@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useUserStore } from '@/stores/userStore'
+import { useTheme } from 'vuetify/lib/framework.mjs'
+
 const userStore = useUserStore()
 const settingsOpen = ref(false)
 const userDetails = computed(() => userStore.userDetails)
 const userImageUrl = computed(() => {
   return userDetails.value?.images ? userDetails.value?.images[0].url : undefined
 })
+const theme = useTheme()
+
+const toggleTheme = () => {
+  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+}
 </script>
 <template>
   <v-app-bar rounded>
@@ -14,6 +21,12 @@ const userImageUrl = computed(() => {
       <v-app-bar-nav-icon @click="settingsOpen = !settingsOpen"></v-app-bar-nav-icon>
     </template>
     <v-app-bar-title>Spotify Recommend</v-app-bar-title>
+    <template v-slot:append>
+      <v-btn
+        :icon="theme.global.current.value.dark ? 'mdi-white-balance-sunny' : 'mdi-weather-night'"
+        @click="toggleTheme"
+      ></v-btn>
+    </template>
   </v-app-bar>
   <v-navigation-drawer v-model="settingsOpen" temporary>
     <v-list>
