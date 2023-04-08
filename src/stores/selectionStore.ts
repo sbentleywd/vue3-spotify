@@ -9,7 +9,8 @@ export const useSelectionStore = defineStore({
     selectedArtists: [] as artist[],
     selectedTracks: [] as track[],
     recommendations: [] as track[],
-    model: 'artists' as 'artists' | 'tracks'
+    model: 'artists' as 'artists' | 'tracks',
+    timeFrame: 'long_term'
   }),
   getters: {
     getSelectedArtistIds(): string[] {
@@ -52,13 +53,25 @@ export const useSelectionStore = defineStore({
       this.selectedTracks = this.selectedTracks.filter((track: track) => track.id !== trackId)
     },
     async getRecommendations() {
-      if (!this.getSeeds.length) this.recommendations = []
+      if (!this.getSeeds.length) {
+        this.recommendations = []
+        return
+      }
       const response = await spotify.getRecommendations(this.model, this.getSeeds)
       if ((response.status = 200)) {
         this.recommendations = response.data.tracks
         const playerStore = usePlayerStore()
         playerStore.playTracks(response.data.tracks)
       }
+    },
+    skipToTrack(track: track) {
+      if (!this.recommendations) return
+      const recommendationIndex = this.recommendations.findIndex(
+        (recommendation: track) => track.id === recommendation.id
+      )
+      const newQueue = this.recommendations.slice(recommendationIndex)
+      const playerStore = usePlayerStore()
+      playerStore.playTracks(newQueue)
     }
   }
 })

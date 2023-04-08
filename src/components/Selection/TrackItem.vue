@@ -18,8 +18,12 @@ const handleClick = () => {
   if (props.mode === 'selection') {
     selectionStore.toggleTrackSelection(props.trackData)
   } else {
-    console.log('play track')
+    playTrack()
   }
+}
+
+const playTrack = () => {
+  selectionStore.skipToTrack(props.trackData)
 }
 </script>
 
@@ -28,7 +32,9 @@ const handleClick = () => {
     :prepend-avatar="props.trackData.album.images[2].url"
     @click="handleClick"
     :disabled="props.disabled"
-    ><span class="text-truncate px-2">{{ props.trackData.name + ' - ' + artistsList }}</span>
+    ><span class="text-truncate text-caption px-2">{{
+      props.trackData.name + ' - ' + artistsList
+    }}</span>
     <template v-slot:append v-if="props.mode === 'selection'">
       <v-icon color="secondary">{{ props.selected ? 'mdi-check' : '' }}</v-icon>
     </template>
