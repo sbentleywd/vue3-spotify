@@ -35,12 +35,12 @@ export const useAuthStore = defineStore('auth', {
     },
     getAuthToken(): void {
       // redirect to spotify auth
-      const clientId = '2605e63cad504fc6889cb31b91f1eff3'
+      const clientId = '7b398c9e4ed743678c514522af3e9f95'
       const scopes =
         'playlist-modify-public user-library-read user-top-read streaming user-read-email user-read-private user-library-modify user-read-recently-played'
       const redirectUri =
         process.env.NODE_ENV === 'production'
-          ? 'https://spotify-recommend.netlify.app'
+          ? 'https://recommend-me3.netlify.app'
           : 'http://127.0.0.1:5173'
       const accessUri = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=${encodeURIComponent(
         scopes
