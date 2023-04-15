@@ -103,6 +103,8 @@ const loadScript = async () => {
       console.log(state)
     })
 
+    player.setName('Spotify Recommend')
+
     player.connect()
   }
 }
