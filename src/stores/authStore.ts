@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
     },
     getAuthToken(): void {
       // redirect to spotify auth
-      const clientId = '7b398c9e4ed743678c514522af3e9f95'
+      const clientId = '2605e63cad504fc6889cb31b91f1eff3'
       const scopes =
         'playlist-modify-public user-library-read user-top-read streaming user-read-email user-read-private user-library-modify user-read-recently-played'
       const redirectUri =
