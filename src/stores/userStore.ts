@@ -9,11 +9,11 @@ export const useUserStore = defineStore('user', {
     userDetails: null as null | currentUser
   }),
   actions: {
-    async getTopArtists(term: string): Promise<void> {
+    async getTopArtists(term: string = 'long_term'): Promise<void> {
       const response = await spotify.getTopItems('artists', 20, term)
       this.topArtists = response.data.items
     },
-    async getTopTracks(term: string): Promise<void> {
+    async getTopTracks(term: string = 'long_term'): Promise<void> {
       const response = await spotify.getTopItems('tracks', 20, term)
       this.topTracks = response.data.items
     },
