@@ -5,9 +5,14 @@ import AppBar from '@/components/AppBar.vue'
 import Player from '@/components/Player/Player.vue'
 import { useAuthStore } from './stores/authStore'
 import { useUserStore } from './stores/userStore'
+import { useSelectionStore } from './stores/selectionStore'
+import { computed } from '@vue/reactivity'
 
 const authStore = useAuthStore()
 const userStore = useUserStore()
+const selectionStore = useSelectionStore()
+
+const recommendations = computed(() => selectionStore.recommendations)
 
 userStore.getUserInfo()
 </script>
@@ -21,7 +26,7 @@ userStore.getUserInfo()
         <MainSection v-else />
       </v-container>
     </v-main>
-    <div id="playerContainer"><Player /></div>
+    <div v-show="recommendations.length" id="playerContainer"><Player /></div>
   </v-app>
 </template>
 
