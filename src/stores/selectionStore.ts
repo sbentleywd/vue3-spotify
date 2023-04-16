@@ -61,7 +61,7 @@ export const useSelectionStore = defineStore({
       if ((response.status = 200)) {
         this.recommendations = response.data.tracks
         const playerStore = usePlayerStore()
-        playerStore.playTracks(response.data.tracks)
+        await playerStore.playTracks(response.data.tracks)
       }
     },
     skipToTrack(track: track) {

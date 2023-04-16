@@ -8,9 +8,12 @@ export const usePlayerStore = defineStore({
     deviceId: ''
   }),
   actions: {
-    playTracks(tracks: track[]) {
+    async playTracks(tracks: track[]) {
       const uris = tracks.map((track: track) => track.uri)
-      spotify.play(uris, this.deviceId)
+      await spotify.play(uris, this.deviceId)
+    },
+    async getQueue() {
+      return await spotify.getQueue()
     }
   }
 })

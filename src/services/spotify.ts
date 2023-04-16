@@ -24,6 +24,12 @@ export default {
     return spotifyAPI.get('me')
   },
   play(uris: string[], deviceId: string) {
-    return spotifyAPI.put(`me/player/play?device_id=${deviceId}`, JSON.stringify({ uris }))
+    return spotifyAPI.put(
+      `me/player/play?device_id=${deviceId}`,
+      JSON.stringify({ uris, position_ms: 0 })
+    )
+  },
+  getQueue() {
+    return spotifyAPI.get('me/player/queue')
   }
 }
