@@ -38,11 +38,13 @@
 import { ref, computed, watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { usePlayerStore } from '@/stores/playerStore'
+import { useSelectionStore } from '@/stores/selectionStore'
 import type { track } from '@/types'
 import { formatArtists } from '@/helpers'
 
 const authStore = useAuthStore()
 const playerStore = usePlayerStore()
+const selectionStore = useSelectionStore()
 
 const scriptLoaded = ref(false)
 const spotifyPlayer = ref<any>(null)
@@ -60,6 +62,12 @@ const artistName = computed(() =>
 const volume = ref(0.5)
 
 watch(volume, (val) => spotifyPlayer.value.setVolume(val))
+
+const recommendations = computed(() => selectionStore.recommendations)
+
+watch(recommendations, (recs) => {
+  if (recs.length) spotifyPlayer.value.activateElement()
+})
 
 const loadScript = async () => {
   const script = document.createElement('script')
@@ -98,9 +106,18 @@ const loadScript = async () => {
     })
 
     // @ts-ignore
-    player.addListener('player_state_changed', (state) => {
+    player.addListener('initialization_error', ({ device_id }) => {
+      console.log('initialization_error', device_id)
+    })
+
+    // @ts-ignore
+    player.addListener('playback_error', ({ device_id }) => {
+      console.log('playback_error', device_id)
+    })
+
+    // @ts-ignore
+    player.addListener('player_state_changed', async (state) => {
       playerState.value = state
-      console.log(state)
     })
 
     player.setName('Spotify Recommend')
