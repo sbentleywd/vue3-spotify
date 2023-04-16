@@ -10,7 +10,14 @@ const recommendations = computed(() => selectionStore.recommendations)
 <template>
   <div class="fill-height d-flex flex-column justify-start">
     <v-row class="flex-grow-0 flex-shrink-0" style="height: 80px">
-      <v-col cols="12" class="d-flex align-center justify-center"> Recommendations </v-col>
+      <v-col cols="12" class="d-flex align-center justify-center">
+        <span>Recommendations</span>
+        <v-btn
+          icon="mdi-refresh"
+          class="ms-auto"
+          @click="selectionStore.getRecommendations()"
+        ></v-btn
+      ></v-col>
     </v-row>
     <span class="test-body-2" v-if="!recommendations.length"
       >Select up to 5 seeds to generate recommendations</span
