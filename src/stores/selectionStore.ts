@@ -10,7 +10,10 @@ export const useSelectionStore = defineStore({
     selectedTracks: [] as track[],
     recommendations: [] as track[],
     model: 'artists' as 'artists' | 'tracks',
-    timeFrame: 'long_term'
+    timeFrame: 'long_term',
+    energy: 0.5,
+    popularity: 0.5,
+    instrumentalness: 0.5
   }),
   getters: {
     getSelectedArtistIds(): string[] {

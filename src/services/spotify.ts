@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useAuthStore } from '@/stores/authStore'
+import { useSelectionStore } from '@/stores/selectionStore'
 
 const spotifyAPI = axios.create({
   baseURL: 'https://api.spotify.com/v1/'
@@ -16,9 +17,14 @@ export default {
     return spotifyAPI.get(`me/top/${type}?&limit=${limit}&time_range=${term}`)
   },
   getRecommendations(type: string, seeds: string[]) {
+    const selectionStore = useSelectionStore()
     const typeString = type === 'artists' ? 'seed_artists' : 'seed_tracks'
     const seedString = seeds.join(',')
-    return spotifyAPI.get(`recommendations?&${typeString}=${seedString}`)
+    return spotifyAPI.get(
+      `recommendations?&${typeString}=${seedString}&energy=${selectionStore.energy.toString()}&instrumentalness=${
+        selectionStore.instrumentalness
+      }&popularity=${selectionStore.popularity}`
+    )
   },
   getUserDetails() {
     return spotifyAPI.get('me')

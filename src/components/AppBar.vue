@@ -72,11 +72,40 @@ watch(selectedTimeframe, () => {
       </v-list-group>
       <v-divider class="my-2" />
 
-      <v-list-group value="results">
+      <v-list-group fluid value="results">
         <template v-slot:activator="{ props }">
           <v-list-item v-bind="props" title="Recommendation settings"></v-list-item>
         </template>
-        <v-list-item>Test</v-list-item>
+        <v-list-item class="pl-2"
+          >Energy:
+          <v-slider
+            min="0"
+            max="1"
+            v-model="selectionStore.energy"
+            hide-details
+            color="secondary"
+          ></v-slider
+        ></v-list-item>
+        <v-list-item class="pl-2"
+          >Popularity:
+          <v-slider
+            min="0"
+            max="1"
+            v-model="selectionStore.popularity"
+            hide-details
+            color="secondary"
+          ></v-slider
+        ></v-list-item>
+        <v-list-item class="pl-2"
+          >Instrumentalness:
+          <v-slider
+            min="0"
+            max="1"
+            v-model="selectionStore.instrumentalness"
+            hide-details
+            color="secondary"
+          ></v-slider
+        ></v-list-item>
       </v-list-group>
     </v-list>
   </v-navigation-drawer>
