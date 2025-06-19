@@ -2,9 +2,12 @@
 import { useSelectionStore } from '@/stores/selectionStore'
 import { computed } from '@vue/reactivity'
 import TrackItem from '@/components//Selection/TrackItem.vue'
+import { usePlayerStore } from '@/stores/playerStore'
 
 const selectionStore = useSelectionStore()
+const playerStore = usePlayerStore()
 const recommendations = computed(() => selectionStore.recommendations)
+const currentTrackId = computed(() => playerStore.getCurrentTrack?.id)
 </script>
 
 <template>
@@ -27,6 +30,7 @@ const recommendations = computed(() => selectionStore.recommendations)
         v-for="(track, index) in recommendations"
         :key="index"
         :track-data="track"
+        :now-playing="currentTrackId === track.id"
         mode="results"
       />
     </v-list>

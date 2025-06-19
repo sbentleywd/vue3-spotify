@@ -1,19 +1,19 @@
 <template>
-  <v-row no-gutters v-if="currentTrack" class="fill-height">
+  <v-row no-gutters v-if="playerStore.getCurrentTrack" class="fill-height">
     <v-col cols="3" md="2" xs="3" class="d-flex align-center justify-center">
-      <v-img :src="trackImageUrl" alt="Track image" max-height="90"></v-img>
+      <v-img :src="playerStore.getTrackImage" alt="Track image" max-height="90"></v-img>
     </v-col>
     <v-col cols="9" md="10" xs="9">
       <v-row no-gutters class="fill-height">
         <v-col cols="12" md="6" xs="12" class="d-flex align-center justify-center"
           ><span class="text-truncate px-2">{{
-            currentTrack.name + ' - ' + artistName
+            playerStore.getCurrentTrack.name + ' - ' + playerStore.getArtistName
           }}</span></v-col
         >
         <v-col cols="6" md="4" xs="6" class="d-flex align-center justify-center">
           <v-icon @click="spotifyPlayer.previousTrack()" icon="mdi-skip-previous" class="mx-2" />
           <v-icon
-            v-if="!playerState.paused"
+            v-if="!playerStore.playerState.paused"
             @click="spotifyPlayer.togglePlay()"
             icon="mdi-pause"
             class="mx-2"
@@ -39,8 +39,6 @@ import { ref, computed, watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { usePlayerStore } from '@/stores/playerStore'
 import { useSelectionStore } from '@/stores/selectionStore'
-import type { track } from '@/types'
-import { formatArtists } from '@/helpers'
 
 const authStore = useAuthStore()
 const playerStore = usePlayerStore()
@@ -48,16 +46,6 @@ const selectionStore = useSelectionStore()
 
 const scriptLoaded = ref(false)
 const spotifyPlayer = ref<any>(null)
-const playerState = ref<null | any>(null)
-const currentTrack = computed<track | null>(
-  () => playerState?.value?.track_window.current_track || null
-)
-const trackImageUrl = computed(
-  () => currentTrack.value?.album.images.find((img) => img.height === 64)?.url || ''
-)
-const artistName = computed(() =>
-  currentTrack.value ? formatArtists(currentTrack.value.artists) : ''
-)
 
 const volume = ref(0.5)
 
@@ -117,7 +105,7 @@ const loadScript = async () => {
 
     // @ts-ignore
     player.addListener('player_state_changed', async (state) => {
-      playerState.value = state
+      playerStore.playerState = state
     })
 
     player.setName('Spotify Recommend')
