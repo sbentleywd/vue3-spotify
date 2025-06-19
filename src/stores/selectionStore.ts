@@ -75,6 +75,11 @@ export const useSelectionStore = defineStore({
       const newQueue = this.recommendations.slice(recommendationIndex)
       const playerStore = usePlayerStore()
       playerStore.playTracks(newQueue)
+    },
+    resetRecommendationSettings() {
+      this.energy = 0.5
+      this.popularity = 0.5
+      this.instrumentalness = 0.5
     }
   }
 })

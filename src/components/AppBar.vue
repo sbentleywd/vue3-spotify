@@ -106,6 +106,9 @@ watch(selectedTimeframe, () => {
             color="secondary"
           ></v-slider
         ></v-list-item>
+        <v-list-item>
+          <v-btn @click="selectionStore.resetRecommendationSettings" color="secondary">Reset</v-btn>
+        </v-list-item>
       </v-list-group>
     </v-list>
   </v-navigation-drawer>
