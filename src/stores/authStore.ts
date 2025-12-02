@@ -79,7 +79,7 @@ export const useAuthStore = defineStore('auth', {
         this.setAccessTokenFromResponse(data)
 
         // remove code from url
-        const url = new URL(window.location)
+        const url = new URL(window.location.href)
         // Remove query param
         url.searchParams.delete('code')
         // Replace the URL in the address bar without reloading
