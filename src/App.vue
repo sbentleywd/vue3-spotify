@@ -6,7 +6,7 @@ import Player from '@/components/Player/Player.vue'
 import { useAuthStore } from './stores/authStore'
 import { useUserStore } from './stores/userStore'
 import { useSelectionStore } from './stores/selectionStore'
-import { computed } from '@vue/reactivity'
+import { computed } from 'vue'
 
 const authStore = useAuthStore()
 const userStore = useUserStore()

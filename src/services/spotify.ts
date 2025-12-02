@@ -6,8 +6,9 @@ const spotifyAPI = axios.create({
   baseURL: 'https://api.spotify.com/v1/'
 })
 
-spotifyAPI.interceptors.request.use((config) => {
+spotifyAPI.interceptors.request.use(async (config) => {
   const authStore = useAuthStore()
+  await authStore.checkAuth()
   config.headers.Authorization = `Bearer ${authStore.sessionToken}`
   return config
 })
