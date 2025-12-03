@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import Welcome from '@/components/Welcome.vue'
-import MainSection from '@/components/MainSection.vue'
-import AppBar from '@/components/AppBar.vue'
-import Player from '@/components/Player/Player.vue'
-import { useAuthStore } from './stores/authStore'
-import { useUserStore } from './stores/userStore'
-import { useSelectionStore } from './stores/selectionStore'
-import { computed } from 'vue'
+import Welcome from '@/components/Welcome.vue';
+import MainSection from '@/components/MainSection.vue';
+import AppBar from '@/components/AppBar.vue';
+import Player from '@/components/Player/Player.vue';
+import { useAuthStore } from './stores/authStore';
+import { useUserStore } from './stores/userStore';
+import { useSelectionStore } from './stores/selectionStore';
+import { computed } from 'vue';
 
-const authStore = useAuthStore()
-const userStore = useUserStore()
-const selectionStore = useSelectionStore()
+const authStore = useAuthStore();
+const userStore = useUserStore();
+const selectionStore = useSelectionStore();
 
-const recommendations = computed(() => selectionStore.recommendations)
+const recommendations = computed(() => selectionStore.recommendations);
 
-userStore.getUserInfo()
+userStore.getUserInfo();
 </script>
 
 <template>

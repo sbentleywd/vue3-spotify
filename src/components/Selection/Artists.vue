@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useUserStore } from '../../stores/userStore'
-import { useSelectionStore } from '@/stores/selectionStore'
-import { computed } from '@vue/reactivity'
-import ArtistItem from '@/components/Selection/ArtistItem.vue'
-const userStore = useUserStore()
-const selectionStore = useSelectionStore()
-const topArtists = computed(() => userStore.topArtists)
-const selectedArtistIds = computed(() => selectionStore.getSelectedArtistIds)
+import { useUserStore } from '../../stores/userStore';
+import { useSelectionStore } from '@/stores/selectionStore';
+import { computed } from '@vue/reactivity';
+import ArtistItem from '@/components/Selection/ArtistItem.vue';
+const userStore = useUserStore();
+const selectionStore = useSelectionStore();
+const topArtists = computed(() => userStore.topArtists);
+const selectedArtistIds = computed(() => selectionStore.getSelectedArtistIds);
 
-userStore.getTopArtists()
+userStore.getTopArtists();
 </script>
 
 <template>

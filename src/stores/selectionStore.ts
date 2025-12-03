@@ -1,7 +1,7 @@
-import { defineStore } from 'pinia'
-import type { artist, track } from '@/types'
-import spotify from '@/services/spotify'
-import { usePlayerStore } from './playerStore'
+import { defineStore } from 'pinia';
+import type { artist, track } from '@/types';
+import spotify from '@/services/spotify';
+import { usePlayerStore } from './playerStore';
 
 export const useSelectionStore = defineStore({
   id: 'selections',
@@ -17,69 +17,67 @@ export const useSelectionStore = defineStore({
   }),
   getters: {
     getSelectedArtistIds(): string[] {
-      return this.selectedArtists.map((artist: artist) => artist.id)
+      return this.selectedArtists.map((artist: artist) => artist.id);
     },
     getSelectedTrackIds(): string[] {
-      return this.selectedTracks.map((track: track) => track.id)
+      return this.selectedTracks.map((track: track) => track.id);
     },
     getSeeds(): string[] {
-      return this.model === 'artists' ? this.getSelectedArtistIds : this.getSelectedTrackIds
+      return this.model === 'artists' ? this.getSelectedArtistIds : this.getSelectedTrackIds;
     }
   },
   actions: {
     toggleArtistSelection(artist: artist) {
       if (this.getSelectedArtistIds.includes(artist.id)) {
-        this.unselectArtist(artist.id)
+        this.unselectArtist(artist.id);
       } else {
-        this.selectArtist(artist)
+        this.selectArtist(artist);
       }
-      this.getRecommendations()
+      this.getRecommendations();
     },
     selectArtist(artist: artist): void {
-      if (this.selectedArtists.length < 5) this.selectedArtists.push(artist)
+      if (this.selectedArtists.length < 5) this.selectedArtists.push(artist);
     },
     unselectArtist(artistId: string): void {
-      this.selectedArtists = this.selectedArtists.filter((artist: artist) => artist.id !== artistId)
+      this.selectedArtists = this.selectedArtists.filter((artist: artist) => artist.id !== artistId);
     },
     toggleTrackSelection(track: track) {
       if (this.getSelectedTrackIds.includes(track.id)) {
-        this.unselectTrack(track.id)
+        this.unselectTrack(track.id);
       } else {
-        this.selectTrack(track)
+        this.selectTrack(track);
       }
-      this.getRecommendations()
+      this.getRecommendations();
     },
     selectTrack(track: track): void {
-      if (this.selectedTracks.length < 5) this.selectedTracks.push(track)
+      if (this.selectedTracks.length < 5) this.selectedTracks.push(track);
     },
     unselectTrack(trackId: string) {
-      this.selectedTracks = this.selectedTracks.filter((track: track) => track.id !== trackId)
+      this.selectedTracks = this.selectedTracks.filter((track: track) => track.id !== trackId);
     },
     async getRecommendations() {
       if (!this.getSeeds.length) {
-        this.recommendations = []
-        return
+        this.recommendations = [];
+        return;
       }
-      const response = await spotify.getRecommendations(this.model, this.getSeeds)
+      const response = await spotify.getRecommendations(this.model, this.getSeeds);
       if ((response.status = 200)) {
-        this.recommendations = response.data.tracks
-        const playerStore = usePlayerStore()
-        await playerStore.playTracks(response.data.tracks)
+        this.recommendations = response.data.tracks;
+        const playerStore = usePlayerStore();
+        await playerStore.playTracks(response.data.tracks);
       }
     },
     skipToTrack(track: track) {
-      if (!this.recommendations) return
-      const recommendationIndex = this.recommendations.findIndex(
-        (recommendation: track) => track.id === recommendation.id
-      )
-      const newQueue = this.recommendations.slice(recommendationIndex)
-      const playerStore = usePlayerStore()
-      playerStore.playTracks(newQueue)
+      if (!this.recommendations) return;
+      const recommendationIndex = this.recommendations.findIndex((recommendation: track) => track.id === recommendation.id);
+      const newQueue = this.recommendations.slice(recommendationIndex);
+      const playerStore = usePlayerStore();
+      playerStore.playTracks(newQueue);
     },
     resetRecommendationSettings() {
-      this.energy = 0.5
-      this.popularity = 0.5
-      this.instrumentalness = 0.5
+      this.energy = 0.5;
+      this.popularity = 0.5;
+      this.instrumentalness = 0.5;
     }
   }
-})
+});
