@@ -20,6 +20,13 @@ export const useAuthStore = defineStore('auth', {
         return;
       }
 
+      // check for refresh token
+      const refreshToken = localStorage.getItem('spotifyRefreshToken');
+      if (refreshToken) {
+        this.refreshToken();
+        return;
+      }
+
       // check for code verifier in local storage
       this.codeVerifier = localStorage.getItem('spotifyVerifier');
 
@@ -91,19 +98,16 @@ export const useAuthStore = defineStore('auth', {
       const expiresIn = Number(tokenResponse.expires_in) * 1000;
       const tokenExpiry = Date.now() + expiresIn;
       localStorage.setItem('spotifyTokenExpiry', tokenExpiry.toString());
-      window.setTimeout(() => this.refreshToken(), expiresIn);
+      if (tokenResponse.refresh_token) window.setTimeout(() => this.refreshToken(), expiresIn);
     },
 
     async refreshToken(): Promise<void> {
-      // on token expiry generate refresh token
+      // use refresh token to get new access token
       localStorage.removeItem('spotifyToken');
       this.sessionToken = null;
 
       const refreshToken = localStorage.getItem('spotifyRefreshToken');
-      if (!refreshToken) {
-        this.getAuthCode();
-        return;
-      }
+
       const url = 'https://accounts.spotify.com/api/token';
 
       const payload = {
@@ -113,7 +117,7 @@ export const useAuthStore = defineStore('auth', {
         },
         body: new URLSearchParams({
           grant_type: 'refresh_token',
-          refresh_token: refreshToken,
+          refresh_token: refreshToken as string,
           client_id: this.clientId
         })
       };
