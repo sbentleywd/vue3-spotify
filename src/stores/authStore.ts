@@ -4,6 +4,7 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     sessionToken: null as null | string,
     clientId: '2605e63cad504fc6889cb31b91f1eff3',
+    // @ts-ignore
     redirectUri: process.env.NODE_ENV === 'production' ? 'https://recommend-me3.netlify.app' : 'http://127.0.0.1:5173',
     codeVerifier: null as null | string
   }),

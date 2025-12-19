@@ -11,17 +11,15 @@ export const useUserStore = defineStore('user', {
   actions: {
     async getTopArtists(term: string = 'long_term'): Promise<void> {
       const response = await spotify.getTopItems('artists', 20, term);
-      this.topArtists = response.data.items;
+      this.topArtists = response.items;
     },
     async getTopTracks(term: string = 'long_term'): Promise<void> {
       const response = await spotify.getTopItems('tracks', 20, term);
-      this.topTracks = response.data.items;
+      this.topTracks = response.items;
     },
     async getUserInfo(): Promise<void> {
       const response = await spotify.getUserDetails();
-      if (response.status === 200) {
-        this.userDetails = response.data;
-      }
+      this.userDetails = response;
     }
   }
 });
